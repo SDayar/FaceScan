@@ -65,7 +65,7 @@ class Parametre():
         self.__prenom = ctk.CTkEntry(self.fenetre_image, bg_color="#dce4e8", fg_color="white", placeholder_text="Prenom", placeholder_text_color="gray")
         self.__prenom.place(relx=0.1, rely=0.55, anchor="w")
 
-        self.__age = ctk.CTkEntry(self.fenetre_image, bg_color="#dce4e8", fg_color="white", placeholder_text="Age", placeholder_text_color="gray")
+        self.__age = ctk.CTkEntry(self.fenetre_image, bg_color="#dce4e8", fg_color="white", placeholder_text="Age réel", placeholder_text_color="gray")
         self.__age.place(relx=0.3, rely=0.55, anchor="w")
         #Insertion des données
         self.bouton_donnee = ctk.CTkButton(self.fenetre_image,corner_radius=20, fg_color="white", bg_color="#dce4e8", hover_color="#de3137",  text="Enregistrer", command = self.InserIDVis)
@@ -97,6 +97,9 @@ class Parametre():
             self.Informations_Img()
             self.__img = plimgtk.PhotoImage(image=plimg.fromarray(self.__imgCV))# -> On transtype l'image en Tk
             self.canvas.create_image((150,150), image=self.__img)
+            for widget in self.fenetre_image.winfo_children():
+                widget.update()
+                print(widget)
         except :
             pass
         
@@ -110,23 +113,23 @@ class Parametre():
             visages = self.haar_vsg.detectMultiScale(self.__imgCV)
             oeils = self.haar_yeux.detectMultiScale(self.__imgCV)
             
-            coordonnee_vsg = list(visages)
+            self.coordonnee_vsg = list(visages)
             coordonnee_yeux = list(oeils) 
             #Une seule personne sur l'image -> Contrôler avec len(visages)
-            if len(coordonnee_vsg) != 1 or len(coordonnee_yeux) != 2:#Un problème sur la détéction
+            if len(self.coordonnee_vsg) != 1 or len(coordonnee_yeux) != 2:#Un problème sur la détéction
                 if len(coordonnee_yeux) != 2:
                     self.lbl_etat.configure(fg_color="#de3137", text="La détéction des yeux n'a pas été effective *")#Pour les yeux on devrait avoir deux coordonnées car chaque oeil a ses propres coordonnées
-                    self.informations.configure(text=self.Detect_Age_genre()+"\n{} visage detecté".format(len(coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
-                elif len(coordonnee_vsg) != 1:
+                    self.informations.configure(text=self.Detect_Age_genre()+"\n{} visage detecté".format(len(self.coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
+                elif len(self.coordonnee_vsg) != 1:
                     self.lbl_etat.configure(fg_color="#de3137", text="La détéction du visage n'a pas été effective *")
-                    self.informations.configure(text=self.Detect_Age_genre()+"\n{} visages detectés".format(len(coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
-                elif len(coordonnee_vsg) != 1 and len(coordonnee_yeux) != 2: 
+                    self.informations.configure(text=self.Detect_Age_genre()+"\n{} visages detectés".format(len(self.coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
+                elif len(self.coordonnee_vsg) != 1 and len(coordonnee_yeux) != 2: 
                     self.lbl_etat.configure(fg_color="#de3137", text="La détéction du visage et des yeux n'a pas été effective*")
             else :#Aucun problème sur la détection
                 self.lbl_etat.configure(fg_color="green", text="La détéction du visage et des yeux a réussi")
-                self.informations.configure(text=self.Detect_Age_genre()+"\n{} visage detecté".format(len(coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
+                self.informations.configure(text=self.Detect_Age_genre()+"\n{} visage detecté".format(len(self.coordonnee_vsg)))#-> Le nombre de visages étudiés qu'il y'en est ou non
                 self.Detect_Age_genre()
-            for yT, xR,yB, xL in coordonnee_vsg:
+            for yT, xR,yB, xL in self.coordonnee_vsg:
                 cv.rectangle(self.__imgCV, (yT, xR), (yT + yB, xR + xL), color=(0, 0, 255), thickness=2)
             for yT, xR,yB, xL in coordonnee_yeux:
                 cv.rectangle(self.__imgCV, (yT, xR), (yT + yB, xR + xL), color=(0, 255, 255), thickness=2)
@@ -147,12 +150,12 @@ class Parametre():
         blob = cv.dnn.blobFromImage(self.__imgCV,1.0, (227,227), MODEL_MEAN_VALUES, swapRB=False)
         genreNet.setInput(blob)
         genrePred=genreNet.forward()
-        genre=lst_genre[genrePred[0].argmax()]
+        self.genre=lst_genre[genrePred[0].argmax()]
 
         ageNet.setInput(blob)
         agePred=ageNet.forward()
         age=lst_age[agePred[0].argmax()]
-        informations ="Informations et estimations:\nAge = {}ans*\nGenre = {}".format(age,genre)
+        informations ="Informations et estimations:\nAge = {}ans*\nGenre = {}".format(age,self.genre)
         return informations
         
     def fermeFenetre(self):
@@ -172,24 +175,27 @@ class Parametre():
     def InserIDVis(self):
         """ self -> None
         Insére l'ID dans la BD"""
+        print(self.__prenom.get())
         
         try:
-            if (self.__prenom.get() != "" and self.__age.get() != "" and len(self.__ID) != 0): 
+            if (self.__prenom.get() != "" and self.__age.get() != "" and len(self.coordonnee_vsg) == 1): 
                 rqt_curs = self.connexion.cursor()
                 chaine="["
                 for x in self.__ID:
                     chaine+=str(x)+"  "
                 chaine = chaine[:len(chaine)-2]+ "]" #-> Enlève le dernier espace
-                rqt_curs.execute("insert into faces(Marks,Age,Name) values('" +chaine+"'," + "'"+ self.__age.get()+"','"+ self.__prenom.get()+"')")#-> Marks fait référence à l'empreinte
-                info("Enregistrement réussi !", "Bravo ! Vous êtes enrégistré(e). Veuillez révenir une prochaine fois pour découvrir vos informations. A tout de suite !")
+                try:
+                    rqt_curs.execute("insert into faces(Marks,Age,Name,Gender) values('" +chaine+"'," + "'"+ self.__age.get()+"','"+ self.__prenom.get()+"','"+self.genre+"')")#-> Marks fait référence à l'empreinte
+                    info("Enregistrement réussi !", "Bravo ! Vous êtes enrégistré(e). Veuillez révenir une prochaine fois pour découvrir vos informations. A tout de suite !")
+                except:
+                    rqt_curs.execute("insert into faces(Marks,Age,Name,Gender) values('" +chaine+"'," + "'"+ self.__age.get()+"','"+ self.__prenom.get()+"','Unknown')")#-> Marks fait référence à l'empreinte
+                    info("Enregistrement réussi !", "Bravo ! Vous êtes enrégistré(e). Votre genre n'étant pas reconnu par notre modèle, vôtre genre a été enregistré comme Unknown.")
+                    
                 rqt_curs.close()
             else :
-                info("Erreur !", "Vérifiez vos données et/ou votre photo !")
+                info("Erreur !", "Les conditions ne sont pas réunies pour pouvoir ajouter ce profil. Réessayez avec d'autres informations !")
         except cnx.Error as erreur:
-            warning("Erreur", str(erreur))
-        finally:
-            if self.connexion.is_connected():
-                self.connexion.close()      
+            warning("Erreur", str(erreur))      
     def fermeFenetre(self):
         """self -> None
          Permet de fermer l'écran"""

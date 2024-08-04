@@ -30,7 +30,6 @@ class Splash():
         """ int -> None
             Met à jour chaque frame du gif"""
         if cible == "cam":#Si la cible est le fichier caméra
-            print("cam")
             if indice_frame < (len(self.splashframes)-1):#Si on n'a pas encore atteint la dernière frame
                 self.lblSpl.configure(image=self.splashframes[indice_frame])#-> On met à jour le label en lui affectant le nouveau frame grâce à son indice
                 self.idlbl = self.lblSpl.after(10, self.UpdateSplash, (indice_frame+1),"cam")#-> modulo n car on veut être sur de revenir à l'indice 0
@@ -84,9 +83,9 @@ class Webcam():
         lbl.pack()
         multitab = ctk.CTkTabview(self.__fenetre_camera, corner_radius=20, width=int(self.__fenetre_camera.winfo_screenwidth()*1/5), height=int(self.__fenetre_camera.winfo_screenheight()/5), bg_color="#efefef", fg_color="#efefef", segmented_button_fg_color="#efefef", segmented_button_selected_color="#de3137",segmented_button_selected_hover_color="#de3137")
         multitab.place(relx=0.7, rely=0.01)
-        multitab.add("Nom - Age")
+        multitab.add("Nom - Age - Genre")
         multitab.add("Historiques")
-        self.textBox_tab1= ctk.CTkTextbox(multitab.tab("Nom - Age"), text_color="black", bg_color="#efefef", fg_color="white", corner_radius=20, width=int(self.__fenetre_camera.winfo_screenwidth()*1/5), height=int(self.__fenetre_camera.winfo_screenheight()/5), font=("Arial",15))
+        self.textBox_tab1= ctk.CTkTextbox(multitab.tab("Nom - Age - Genre"), text_color="black", bg_color="#efefef", fg_color="white", corner_radius=20, width=int(self.__fenetre_camera.winfo_screenwidth()*1/5), height=int(self.__fenetre_camera.winfo_screenheight()/5), font=("Arial",15))
         self.textBox_tab1.pack()
         self.textBox_tab2= ctk.CTkTextbox(multitab.tab("Historiques"), text_color="black", bg_color="#efefef", fg_color="white",corner_radius=20, width=int(self.__fenetre_camera.winfo_screenwidth()*1/5), height=int(self.__fenetre_camera.winfo_screenheight()/5), font=("Arial",15))
         self.textBox_tab2.pack()
@@ -105,10 +104,9 @@ class Webcam():
         jour = Dict_jour[datetime.now().strftime("%A")]
         mois= Dict_mois[datetime.now().strftime("%B")]
         
-        lbl_info = ctk.CTkLabel(self.__fenetre_camera, width=650, text="Prise du "+ jour+datetime.now().strftime(" %d ")+mois+" 2024",  font=("System",16), corner_radius=50, text_color="black", bg_color="#efefef", fg_color="white")
+        lbl_info = ctk.CTkLabel(self.__fenetre_camera, width=650, text="Prise du "+ jour+datetime.now().strftime(" %d ")+mois+" 2024"+" / Take of "+datetime.now().strftime("%B")+" "+ datetime.now().strftime(" %d ")+ " "+ datetime.now().strftime("%A")+".",  font=("System",16), corner_radius=50, text_color="black", bg_color="#efefef", fg_color="white")
         lbl_info.place(relx=0.1, rely=0.7)
-        self.lbl_info = ctk.CTkLabel(self.__fenetre_camera, width=650, height=160, text="Lancée il y a Omin", corner_radius=20, text_color="black", bg_color="#efefef", fg_color="white")
-        self.lbl_info.place(relx=0.1, rely=0.75)
+       
         
    
     def ouvre_webcam(self):
@@ -132,13 +130,13 @@ class Webcam():
                 cv.rectangle(self.__video, (self.xL, self.yT),(self.xR, self.yB) , color=(255, 0, 0), thickness=2)
                 if len(face_recogn.face_locations(self.__video)) > 0:
                         inconnu = face_recogn.face_encodings(self.__video, [(self.yT, self.xR, self.yB, self.xL)])
-                        for connu in self.__donneeID:#-> connu est un tuple contenant Empreinte, Age puis Prenom
-                            if face_recogn.compare_faces([connu[0]], inconnu[0], tolerance=0.7)[0] and connu[2] not in (self.textBox_tab2.get("0.0", "end")):#Si le vecteur est présent dans la BD et qu'il n'est pas présent dans le boite d'affichage et pas présent dans la boite de historique.A noter que la tolérance est plus stricte
-                                self.textBox_tab1.insert("1.0"+str(i),connu[2]+" - "+ connu[1]+"ans\n")#-> Présent directement
-                                self.textBox_tab2.insert("2.0"+str(i), str(i+1)+ ") "+ connu[2]+" - "+ connu[1]+"ans à "+datetime.now().strftime("%Hh: %Mmin")+"\n")#-> Historiques
+                        for connu in self.__donneeID:#-> connu est un tuple contenant Empreinte, Age, Prenom puis Genre
+                            if face_recogn.compare_faces([connu[0]], inconnu[0], tolerance=0.5)[0] and connu[2] not in (self.textBox_tab2.get("0.0", "end")):#Si le vecteur est présent dans la BD et qu'il n'est pas présent dans le boite d'affichage et pas présent dans la boite de historique.A noter que la tolérance est plus stricte
+                                self.textBox_tab1.insert("1.0"+str(i), connu[2]+" - "+ connu[1]+"ans - "+connu[3]+"\n")#-> Présent directement
+                                self.textBox_tab2.insert("2.0"+str(i), str(i+1)+ "- "+ connu[2]+" - "+ connu[1]+"ans -" + connu[3] + " | "+datetime.now().strftime("%Hh: %Mmin")+"\n")#-> Historiques
                                 i+=1
                             else : 
-                                break
+                                pass
                 else :
                     break
                 

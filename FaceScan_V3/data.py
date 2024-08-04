@@ -15,7 +15,7 @@ class Donnee():
             i=0
             for colonne in self.__IDDB:
                 tab = np.fromstring(colonne[3][1:-1], sep=" ")#-> colonne est un tuple (ligne de la table visages) et colonne[3] sa colonne empreinte
-                self.__donneeID.append((tab.astype(np.float64), colonne[2], colonne[1]))#-> liste =[ (Empreinte, age, prenom) ]
+                self.__donneeID.append((tab.astype(np.float64), colonne[2], colonne[1], colonne[4]))#-> liste =[ (Empreinte, age, prenom, genre) ]
                 i+=1
             return self.__donneeID
         except cnx.Error as erreur :
