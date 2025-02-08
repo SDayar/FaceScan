@@ -17,6 +17,7 @@ Informations :
     Database name : FaceId_DB
          -> Table : Faces
                 -> Columns : ID(int unsigned primary key), Marks(text), Age(text), Name(text).
+
 /*********Notes************************/
 This system is very sensitive(tolerance = 0.6/1). Which means it's not optimum. It has its own limits.If you really want to make sure the system will be able to distinct two faces, I invite you to closely read my notes under the "Saving window". This is the fourth version and probably the latest. But of course I invite you to take a look on the previous ones so you can see the "plus" I add in this. 
 
