@@ -6,10 +6,11 @@ This project has no licence. Which means this program can be used or modified by
 FaceID is one of my GIU project using Python3. It's based on a facial recognition system which essentialy lists and stores faces v ia pictures and datas towards those faces. You can after identify those people via a Webcam or any other cameras. It also has other features in it.
 
 # Libraries(What you need to install)
--> Tkinter/CustomTkinter for screen and GIU features and design.
--> Numpy, Matplotlib, PIL and SQL for data and matrice uses.
--> face_recognition, OpenCV and others for faciale features.
--> Threading, Time to control all events.
+<ol>
+
+<li> Tkinter/CustomTkinter for screen and GIU features and design.</li>
+<li> Numpy, Matplotlib, PIL and SQL for data and matrice uses.</li>
+<li> face_recognition, OpenCV and others for faciale features.</li>
 
 
 # Database Settings
