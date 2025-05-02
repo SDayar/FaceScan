@@ -11,6 +11,7 @@ FaceID is one of my GIU project using Python3. It's based on a facial recognitio
 <li> Tkinter/CustomTkinter for screen and GIU features and design.</li>
 <li> Numpy, Matplotlib, PIL and SQL for data and matrice uses.</li>
 <li> face_recognition, OpenCV and others for faciale features.</li>
+</ol>
 
 
 # Database Settings
