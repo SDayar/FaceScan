@@ -19,7 +19,7 @@ In default, all the datas are on a local SQL - server.
 
 Informations :
 
-    Database name : **FaceId_DB**
+    Database name : *FaceId_DB*
 
 
     Table : **Faces**
