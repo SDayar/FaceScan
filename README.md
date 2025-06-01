@@ -16,8 +16,10 @@ FaceID is one of my GIU project using Python3. It's based on a facial recognitio
 
 # Database Settings
 In default, all the datas are on a local SQL - server.
+
 Informations :
-    Database name : FaceId_DB
+
+    Database name : **FaceId_DB**
          -> Table : Faces
                 -> Columns : ID(int unsigned primary key), Marks(text), Age(text), Name(text).
 
