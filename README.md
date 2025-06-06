@@ -5,7 +5,7 @@ Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’a
 ---
 
 ## 🌳 Arborescence du projet
-```markdown
+
 # 🧑‍💻 FaceScan – Description du projet et de l’arborescence
 
 Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’analyse faciale à travers plusieurs versions, chacune apportant de nouvelles fonctionnalités et une expérience utilisateur enrichie. Voici une description détaillée de l’arborescence et des différences entre chaque version.
@@ -14,7 +14,7 @@ Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’a
 
 ## 🌳 Arborescence du projet
 
-```
+
 FaceScan/
 ├── README.md
 ├── FaceScan_V1/
@@ -41,9 +41,7 @@ FaceScan/
         ├── C2.mp4
         ├── S1.mp4
         └── S2.mp4
-```
 
----
 
 ## 🏷️ Détail des versions
 
@@ -60,7 +58,7 @@ FaceScan/
   - Pas d’interface graphique avancée.
   - Pas de gestion de base de données ni d’analyse supplémentaire.
 
----
+
 
 ### 🥈 FaceScan_V2
 
