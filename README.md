@@ -2,10 +2,6 @@
 
 Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’analyse faciale à travers plusieurs versions, chacune apportant de nouvelles fonctionnalités et une expérience utilisateur enrichie. Voici une description détaillée de l’arborescence et des différences entre chaque version.
 
----
-
-## 🌳 Arborescence du projet
-
 # 🧑‍💻 FaceScan – Description du projet et de l’arborescence
 
 Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’analyse faciale à travers plusieurs versions, chacune apportant de nouvelles fonctionnalités et une expérience utilisateur enrichie. Voici une description détaillée de l’arborescence et des différences entre chaque version.
