@@ -1,11 +1,11 @@
 
-# 🧑‍💻 FaceScan – Description du projet et de l’arborescence
+# FaceScan – Description du projet et de l’arborescence
 
 Bienvenue sur le dépôt **FaceScan** ! Ce projet explore la détection et l’analyse faciale à travers plusieurs versions, chacune apportant de nouvelles fonctionnalités et une expérience utilisateur enrichie. Voici une description détaillée de l’arborescence et des différences entre chaque version.
 
 ---
 
-## 🌳 Arborescence du projet
+## Arborescence du projet
 
 
 FaceScan/
@@ -36,13 +36,13 @@ FaceScan/
         └── S2.mp4
 
 
-## 🏷️ Détail des versions
+## Détail des versions
 
-### 🥇 FaceScan_V1
+### FaceScan_V1
 
 - **Fichier principal :** `cam.py`
 - **Fonctionnalités :**
-  - 📷 Détection de visages et d’yeux en temps réel via la webcam.
+  - Détection de visages et d’yeux en temps réel via la webcam.
   - Utilisation des Haar Cascades d’OpenCV pour la reconnaissance.
   - Interface simple (console ou fenêtre Tkinter basique).
 - **Objectif :**
@@ -53,11 +53,11 @@ FaceScan/
 
 
 
-### 🥈 FaceScan_V2
+### FaceScan_V2
 
 - **Fichier principal :** `cam.py`
 - **Fonctionnalités :**
-  - 🖼️ Interface graphique améliorée avec Tkinter ou CustomTkinter.
+  - Interface graphique améliorée avec Tkinter ou CustomTkinter.
   - Affichage en temps réel des visages et yeux détectés sur la webcam.
   - Meilleure gestion des flux vidéo et de l’affichage.
 - **Améliorations par rapport à V1 :**
@@ -68,17 +68,17 @@ FaceScan/
 
 ---
 
-### 🥉 FaceScan_V3
+### FaceScan_V3
 
 - **Fichiers principaux :** `top.py`, `camera.py`, `data.py`
 - **Fonctionnalités avancées :**
-  - 🎨 Interface graphique professionnelle avec CustomTkinter, logos, splash screen animé (`splash.gif`), et icônes personnalisées.
-  - 🧑‍🦱 Détection de l’âge et du genre grâce à des modèles pré-entraînés (`age_net.caffemodel`, `gender_net.caffemodel`).
-  - 🗃️ Connexion à une base de données SQL pour stocker et retrouver les empreintes faciales.
-  - 📸 Téléchargement, traitement et gestion d’images (plusieurs formats supportés).
-  - 🎥 Vidéos de fond animées pour une interface dynamique (`background/`).
-  - 📂 Gestion avancée des erreurs et des exceptions.
-  - 📊 Fichiers de données et images pour la galerie et l’identification.
+  - Interface graphique professionnelle avec CustomTkinter, logos, splash screen animé (`splash.gif`), et icônes personnalisées.
+  - Détection de l’âge et du genre grâce à des modèles pré-entraînés (`age_net.caffemodel`, `gender_net.caffemodel`).
+  - Connexion à une base de données SQL pour stocker et retrouver les empreintes faciales.
+  - Téléchargement, traitement et gestion d’images (plusieurs formats supportés).
+  - Vidéos de fond animées pour une interface dynamique (`background/`).
+  - Gestion avancée des erreurs et des exceptions.
+  - Fichiers de données et images pour la galerie et l’identification.
 - **Améliorations par rapport à V2 :**
   - Ajout de la reconnaissance d’âge et de genre.
   - Intégration d’une base de données pour la gestion des profils.
@@ -90,7 +90,7 @@ FaceScan/
 
 ---
 
-## 📌 Synthèse des différences
+## Synthèse des différences
 
 | Version      | Interface | Détection visage/yeux | Détection âge/genre | Base de données | Gestion médias | Vidéos de fond | Professionnalisation |
 |--------------|-----------|----------------------|---------------------|-----------------|---------------|----------------|---------------------|
@@ -100,7 +100,7 @@ FaceScan/
 
 ---
 
-## 🚀 Pour aller plus loin
+## Pour aller plus loin
 
 - Consultez chaque dossier de version pour le code source et les instructions spécifiques.
 - Lisez le fichier `READ.txt` dans FaceScan_V3 pour des détails techniques supplémentaires.
@@ -108,7 +108,7 @@ FaceScan/
 
 ---
 
-> 🤝 **Contribuez** ou testez chaque version pour voir l’évolution du projet FaceScan !
+> **Contribuez** ou testez chaque version pour voir l’évolution du projet FaceScan !
 
 ```
 
